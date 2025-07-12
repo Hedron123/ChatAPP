@@ -1,0 +1,16 @@
+const multer = require("multer");
+const path = require("path");
+
+// Store in /uploads folder
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+module.exports = upload;
